@@ -1,0 +1,66 @@
+import random
+
+NUM_PAIRS = 3
+
+def main():
+    # Milestone 1: Truth_list
+    truth_list = [i // 2 for i in range(NUM_PAIRS * 2)]
+
+    # Milestone 2: Shuffle list
+    random.shuffle(truth_list)
+    #print(f"Shuffled truth list: {truth_list}")
+
+    # Milestone 3: Displayed list
+    displayed_list = ['*'] * len(truth_list)
+    print(f"{displayed_list}")
+    revealed_index = set()
+
+    while True:
+        # Index inputs
+        i1 = int(input("Enter an index: "))
+        i2 = int(input("Enter an index: "))
+
+        # Checks if input numbers are valid numbers
+        if i1 != int(i1) or i2 != int(i2):
+            print("Not a number. Try again.")
+            continue
+
+        # Checks if numbers are within set range
+        if not (0 <= i1 < len(truth_list)) or not (0 <= i2 < len(truth_list)):
+            print("Invalid index. Try again.")
+            continue
+
+        # Checks if numbers have been matched in index list
+        if i1 in revealed_index or i2 in revealed_index:
+            print("This number has already been matched. Try again.")
+            continue
+
+        # Check for matches in shuffled truth_list
+        if truth_list[i1] == truth_list[i2]:
+            displayed_list[i1] = truth_list[i1]
+            displayed_list[i2] = truth_list[i2]
+            revealed_index.add(i1)
+            revealed_index.add(i2)
+            print("Match!")
+            clear_terminal()
+        else:
+            # Prints out values at indexes
+            print(f"Value at index {i1} is {truth_list[i1]}")
+            print(f"Value at index {i2} is {truth_list[i2]}")
+            print("No match. Try again.")
+            input("Press Enter to continue...")
+            clear_terminal()
+
+        # Prints out updated display list
+        print(f"{displayed_list}")
+
+        if displayed_list == truth_list:
+            print("Congratulations! You won!")
+            break
+
+def clear_terminal():
+    for i in range(20):
+        print('\n')
+
+if __name__ == '__main__':
+    main()
