@@ -1,0 +1,81 @@
+from graphics import Canvas
+import time
+import random
+    
+CANVAS_WIDTH = 400
+CANVAS_HEIGHT = 400
+SIZE = 20
+
+# if you make this larger, the game will go slower
+DELAY = 0.1 
+
+def main():
+    canvas = Canvas(CANVAS_WIDTH, CANVAS_HEIGHT)
+
+    # 0 for first spawn coordinate of player
+    x = 0
+    y = 0
+    player = canvas.create_rectangle(
+        0,
+        0,
+        SIZE,
+        SIZE,
+        'blue'
+    )
+    
+    # 360 for first spawn coordinate of goal
+    x1 = 360
+    y1 = 360
+    goal = canvas.create_rectangle(
+        x1,
+        y1,
+        x1 + SIZE,
+        y1 + SIZE,
+        'coral'
+    )
+
+    velocity = 0
+    velocity += 10
+
+    while True:     
+        
+        key = canvas.get_last_key_press()
+        if key == 'ArrowLeft':
+            #print('left arrow pressed!')
+            canvas.move(player, x - velocity, y)
+        if key == 'ArrowRight':
+            #print('right arrow pressed!')
+            canvas.move(player, x + velocity, y)
+        if key == 'ArrowUp':
+            #print('up arrow pressed!')
+            canvas.move(player, x, y - velocity)
+        if key == 'ArrowDown':
+            #print('down arrow pressed!')
+            canvas.move(player, x, y + velocity)
+
+        # detects last x and y-position of player
+        # overlapping x and y-coordinate information for player, solution:
+        # rename x and y-coordinate to collision_x/colission_y
+        collision_x = canvas.get_left_x(player)
+        if collision_x <= -SIZE or collision_x > CANVAS_WIDTH + SIZE:
+            print("Game Over!")
+            break
+
+        collision_y = canvas.get_top_y(player)
+        if collision_y <= -SIZE or collision_y > CANVAS_HEIGHT + SIZE:
+            print("Game Over!")
+            break
+        
+        # detects last x and y-position of goal
+        # moves goal to random, new position
+        goal_x = canvas.get_left_x(goal)
+        goal_y = canvas.get_top_y(goal)
+        if (canvas.get_left_x(player) == goal_x)*20 and (canvas.get_top_y(player) == goal_y)*20:
+            x1 = random.randint(0, CANVAS_HEIGHT-SIZE)
+            y1 = random.randint(0, CANVAS_HEIGHT-SIZE)
+            canvas.moveto(goal, x1, y1)
+
+        time.sleep(DELAY)
+
+if __name__ == '__main__':
+    main()
