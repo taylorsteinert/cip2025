@@ -1,0 +1,35 @@
+"""
+Write a program that implements the following process.
+Have the user input a positive integer, call it n.
+If n is even, divide it by two.
+If n is odd, multiply it by three and add one.
+Continue this process until n is equal to one.
+"""
+
+# If the remainder is 1, then the number was odd
+def is_odd(n):
+    return n % 2 == 1
+
+# If the remainder is 0, then the number was even
+def is_even(n):
+    return n % 2 == 0
+
+def main():
+    
+    # Turn n into an integer
+    n = int(input("Enter a number: "))
+
+    while n != 1:
+
+        if is_odd(n):
+            new_n = 3 * n + 1
+            print(f"{n} is odd, so I make 3n + 1: {new_n}")
+
+        elif is_even(n):
+            new_n = n // 2
+            print(f"{n} is even, so I take half: {new_n}")
+
+        n = new_n  # update n for the next iteration
+ 
+if __name__ == "__main__":
+    main()
