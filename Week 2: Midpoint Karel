@@ -1,0 +1,84 @@
+from karel.stanfordkarel import *
+
+"""
+File: main.py
+--------------------
+When you finish writing this file, Karel should be able to find
+the midpoint
+"""
+
+def main():
+    """
+    #Make Karel find the midpoint on any world scale.
+    #Mark ends with beepers and work way inwards, then collect beepers till one is left in the middle
+    """
+
+    mark_start_and_end()    #place beepers on first and last unit location of the world map
+    pick_and_move_markers()
+    anaylize_field()
+
+
+def mark_start_and_end():
+    put_beeper()
+    while front_is_clear():
+        move()
+    put_beeper()
+
+def pick_and_move_markers():
+    move_marker_two()
+    if front_is_clear():
+        reset()
+        move_marker_one()
+        reset()
+    navigate()
+
+def navigate():
+    if beepers_present() and facing_east():
+        turn_around()
+        move()
+        if no_beepers_present():
+            turn_around()
+            move()
+            pick_and_move_markers()
+        else:
+            turn_around()
+            move()
+            pick_beeper()
+            turn_around()
+            move()
+            turn_around()
+
+def move_marker_one():
+    turn_around()
+    pick_beeper()
+    move()
+    if no_beepers_present():
+        put_beeper()
+
+def move_marker_two():
+    turn_around()
+    if beepers_present():
+        pick_beeper()
+    move()
+    if no_beepers_present():
+        put_beeper()
+
+def reset():
+    move()
+    while no_beepers_present() and front_is_clear():
+        move()
+
+def anaylize_field():
+    if front_is_blocked():
+        turn_around()
+        while no_beepers_present() and front_is_clear():
+            move()
+        while not_facing_east():
+            turn_left()
+
+def turn_around():
+    for i in range(2):
+        turn_left()
+
+if __name__ == '__main__':
+    main()
