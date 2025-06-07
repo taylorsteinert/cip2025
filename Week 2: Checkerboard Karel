@@ -1,0 +1,109 @@
+from karel.stanfordkarel import *
+
+"""
+Karel should fill the whole world with beepers.
+"""
+
+
+def main():
+    """
+    Fill any sized world with beepers and create a checkerboard pattern.
+    Return back to starting point after completing mission.  
+    """
+
+    turn_left()
+    while front_is_clear():
+        place_beepers()
+        navigate_facing_north()
+        place_beepers()
+        navigate_facing_south()
+    return_to_start()
+
+#total defined function that outlines possible obstacles and scenarios
+#initiates return back home after placing beepers in any world
+def return_to_start():
+    if front_is_blocked() and facing_east():
+        turn_around()
+        while front_is_clear():
+            move()
+        turn_around()
+
+    #condition for when left is blocked and facing east
+    #start return to start in following matter
+    if left_is_blocked() and facing_east():
+        while front_is_clear():
+            move()
+            if front_is_blocked() and beepers_present():
+                pick_beeper()
+                turn_around()
+                while front_is_clear():
+                    move()
+                turn_left()
+                if front_is_clear():
+                    while front_is_clear():
+                        move()
+        turn_left()
+
+    #condition for when front is blocked and facing north
+    #start return to start in following manner
+    if front_is_blocked() and facing_north():
+        turn_around()
+        pick_beeper()
+        while front_is_clear():
+            move()
+        turn_left()
+
+#create row of beepers in a checkerboard pattern
+def place_beepers():
+    put_beeper()
+    while front_is_clear():
+        move()
+        if no_beepers_present():
+            if front_is_clear():
+                move()
+                put_beeper()
+
+#navigate corner that is blocked facing north
+#while actively placing beepers
+def navigate_facing_north():
+    while facing_north():
+        if no_beepers_present():
+            turn_right()
+            move()
+            turn_right()
+        if beepers_present():
+            turn_right()
+            if front_is_clear():
+                move()
+                turn_right()
+                move()
+            
+#navigate corner that is blocked facing north
+#while actively placing beepers
+def navigate_facing_south():
+    while facing_south():
+        if no_beepers_present():
+            turn_left()
+            if front_is_clear():
+                move()
+                turn_left()
+        if beepers_present():
+            turn_left()
+            move()
+            turn_left()
+            move()
+
+#turn by 90 degrees
+def turn_right():
+    for i in range(3):
+        turn_left()
+
+#turn by 180 degrees
+def turn_around():
+    for i in range(2):
+        turn_left()
+
+
+# There is no need to edit code beyond this point
+if __name__ == '__main__':
+    main()
