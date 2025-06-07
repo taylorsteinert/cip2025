@@ -1,0 +1,41 @@
+from graphics import Canvas
+import random
+
+CANVAS_WIDTH = 600      # Width of drawing canvas in pixels
+CANVAS_HEIGHT = 300     # Height of drawing canvas in pixels
+
+BRICK_WIDTH	= 30        # The width of each brick in pixels
+BRICK_HEIGHT = 12       # The height of each brick in pixels
+BRICKS_IN_BASE = 14     # The number of bricks in the base
+
+def main():
+    canvas = Canvas(CANVAS_WIDTH, CANVAS_HEIGHT)
+
+    #moves y-pos to bottom and subtracts brick height,
+    #moves y-pos up by brick height, 12 from bottom up
+    y = CANVAS_HEIGHT - BRICK_HEIGHT 
+
+    for i in range(BRICKS_IN_BASE, 0, -1):
+        total_brick_length = BRICK_WIDTH * i
+        start_x = (CANVAS_WIDTH - total_brick_length) // 2
+        #calculate center by taking canvas length
+        #substract every new brick row from canvas length and divide that by 2
+        
+        # draw line(s) and set their position
+        for j in range(i):
+            new_x = start_x + j * BRICK_WIDTH
+            draw_brick(canvas, new_x, y)
+
+        y -= BRICK_HEIGHT #move each new brick row up by BRICK_HEIGHT (12)
+
+# draw a single brick
+def draw_brick(canvas, x, y):
+    canvas.create_rectangle(
+        x, y, 
+        x + BRICK_WIDTH, y + BRICK_HEIGHT, 
+        "yellow", "black"
+    )
+
+
+if __name__ == '__main__':
+    main()
