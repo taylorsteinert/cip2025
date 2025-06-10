@@ -1,0 +1,22 @@
+# Write a console program which asks the user for their height in meters and prints whether or not they are the correct height to be a NASA astronaut.
+
+# MIN AND MAX HEIGHT
+MIN_HEIGHT = 1.6
+MAX_HEIGHT = 1.9
+
+def main():
+
+    user_height = input("Enter your height in meters: ")
+    user_height = float(user_height)
+
+    if user_height > MIN_HEIGHT and user_height < MAX_HEIGHT:
+        print("Correct height to be an astronaut")
+
+    elif user_height <= MIN_HEIGHT:
+        print("Below minimum astronaut height")
+
+    elif user_height >= MAX_HEIGHT:
+        print("Above maximum astronaut height")
+
+if __name__ == "__main__":
+    main()
