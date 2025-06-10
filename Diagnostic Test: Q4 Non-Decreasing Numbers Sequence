@@ -1,0 +1,28 @@
+def main():
+    
+    # Prompts user to enter sequence of numbers
+    print("Enter a sequence of non-decreasing numbers.")
+    pre_num = float(input("Enter a num: "))
+
+    # sequence length starts out at 1
+    sequence_length = 1
+
+    while True:
+        new_num = float(input("Enter a num: "))
+
+        if new_num >= pre_num:
+            sequence_length += 1 # add to sequence
+            continue
+
+
+        elif new_num < pre_num:
+            print("Thanks for playing!")
+            # sequence length decreases
+            sequence_length -= 1
+            print("Sequence length: " + str(sequence_length)) # sequence length message
+            break
+
+        pre_num = new_num
+
+if __name__ == "__main__":
+    main()
