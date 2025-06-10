@@ -1,0 +1,29 @@
+# print numbers from 1 up until MAX_NUMBER, inclusive
+MAX_NUMBER = 100
+
+# If the remainder is 1, then the number is odd
+def is_odd(n):
+    return n % 2 == 1
+
+# If the remainder is 0, then the number is even
+def is_even(n):
+    return n % 2 == 0
+
+def main():
+
+    # Starts progamm out with value 1
+    n = 1
+
+    while n <= MAX_NUMBER:
+
+        if is_odd(n):
+            print(f"{n} is odd")
+            n += 1 
+            # put n += 1 always below due to the fence post issue
+
+        elif is_even(n):
+            print(f"{n} is even")
+            n += 1
+
+if __name__ == "__main__":
+    main()
