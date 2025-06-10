@@ -1,0 +1,50 @@
+from karel.stanfordkarel import *
+
+def main():
+
+    # Limited world size to exactly 11 col width and 5 cols tall
+    # while loop for easier execution
+
+    draw_wave()
+    
+    while front_is_clear():
+        reset_pos()
+        move_to_next()
+        draw_wave()
+    finish_mission()
+    
+def draw_wave():
+    put_beeper()
+    move()
+    turn_left()
+    put_beeper()
+    move()
+    put_beeper()
+    turn_right()
+
+def reset_pos():
+    turn_right()
+    move()
+    turn_left()
+
+def move_to_next():
+    for i in range(2):
+        move()
+
+# allows Karel to finish mission after reaching end
+def finish_mission():
+    turn_right()
+    move()
+    turn_left()
+
+# Turns Karel 90 degrees clockwise
+def turn_right():
+    for i in range(3):
+        turn_left()
+
+   
+
+# don't edit these next two lines
+# they tell python to run your main function
+if __name__ == '__main__':
+    main()
